@@ -1,0 +1,63 @@
+InputStreamReader isr = new InputStreamReader(System.in);        
+        BufferedReader br = new BufferedReader(isr);
+        
+        String qwe[] = br.readLine().split(" ");
+        
+        
+        
+        int peeps = Integer.parseInt(qwe[0]);
+        int max_subject = Integer.parseInt(qwe[1]);
+        
+        
+        
+        BitSet[] skills = new BitSet[peeps];
+       
+        for (int p = 0; p < peeps; p++) {
+            BigInteger b = new BigInteger(br.readLine(), 2);
+            skills[p] = BitSet.valueOf(b.toByteArray());
+            
+        }
+        
+        
+        
+        //System.out.println(temp5);
+        
+        int max_local = 0;
+        int max_peep =0;
+        for(int i=0;i< peeps;i++)
+        {
+            
+            for(int j=i+1;j< peeps ;j++)
+            {
+            	//System.out.println("i= "+i+" j= "+j);
+                BitSet temp = new BitSet();
+                temp = (BitSet)skills[i].clone();
+                //System.out.println("Before "+temp);
+                BitSet temp1 = new BitSet();
+                temp1 = (BitSet)skills[j].clone();
+                
+                temp.or(temp1);
+                
+                int number = temp.cardinality();
+                //System.out.println("After "+temp);
+                //System.out.println("i= "+i+" j= "+j+" number= "+number);
+                if(number == max_local)
+                {
+                    max_peep++;
+                    //System.out.println("Increse the number at i ="+i +" j ="+j +" max=  "+max_local);
+                    
+                }
+                if(number > max_local)
+                    {
+                    max_peep = 1;
+                    max_local = number;
+                    //System.out.println("In the loop, setiing max " + number +" i= "+i+" j= "+j);
+                    
+                    }
+                
+                //System.out.println("-------------------");
+            }
+        }
+        
+        System.out.println(max_local);
+        System.out.println(max_peep);
